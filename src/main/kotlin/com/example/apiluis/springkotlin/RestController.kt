@@ -12,36 +12,38 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping("/api/v1/articles")
-class ArticleController(val repository: ArticleRepository) {
+@RequestMapping("/api/v1/wrestlers")
+class WrestlersController(val repository: WrestlerRepository) {
 
 
     @GetMapping
-    fun articles() = repository.findAllByOrderByCreatedAtDesc()
+    fun wrestlers() = repository.findAllByOrderByCreatedAtDesc()
 
     @GetMapping("/{slug}")
-    fun articles(@PathVariable slug: String) =
+    fun wrestlers(@PathVariable slug: String) =
         repository.findBySlug(slug).orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND)}
 
 
     @PostMapping
-    fun newArticle(@RequestBody article: Articles):Articles {
-        article.id = null
-        repository.save(article)
-        return article
+    fun newWrestler(@RequestBody wrestler: Wrestlers):Wrestlers {
+        wrestler.id = null
+        repository.save(wrestler)
+        return wrestler
     }
 
     @PutMapping("/{slug}")
-    fun updateArticle(@RequestBody article: Articles, @PathVariable slug: String): Articles {
-        val existingArticle = repository.findBySlug(slug).orElseThrow {throw ResponseStatusException(HttpStatus.NOT_FOUND)}
-        existingArticle.content = article.content
-        repository.save(article)
-        return article
+    fun updateWrestler(@RequestBody wrestler: Wrestlers, @PathVariable slug: String): Wrestlers {
+        val existingWrestler = repository.findBySlug(slug).orElseThrow {throw ResponseStatusException(HttpStatus.NOT_FOUND)}
+        existingWrestler.city = wrestler.city
+        existingWrestler.promotion = wrestler.promotion
+        existingWrestler.slug = wrestler.slug
+        repository.save(wrestler)
+        return wrestler
     }
 
     @DeleteMapping("/{slug}")
-    fun deleteArticle(@PathVariable slug: String) {
-        val existingArticle = repository.findBySlug(slug).orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND)}
-        repository.delete(existingArticle)
+    fun deleteWrestler(@PathVariable slug: String) {
+        val existingWrestler = repository.findBySlug(slug).orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND)}
+        repository.delete(existingWrestler)
     }
 }

@@ -7,10 +7,11 @@ import jakarta.persistence.Id
 import java.time.LocalDateTime
 
 @Entity
-class Articles(
+class Wrestlers(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null,
-    var title: String,
-    var content: String,
+    var name: String,
+    var city: String,
+    var promotion: String,
     var createdAt: LocalDateTime = LocalDateTime.now(),
-    var slug: String = title.toSlug()
+    var slug: String = name.toSlug()
 )
