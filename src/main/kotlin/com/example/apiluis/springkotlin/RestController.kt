@@ -27,6 +27,7 @@ class WrestlersController(val repository: WrestlerRepository) {
     @PutMapping("/{slug}")
     fun updateWrestler(@RequestBody wrestler: Wrestlers, @PathVariable slug: String): Wrestlers {
         val existingWrestler = repository.findBySlug(slug).orElseThrow {throw ResponseStatusException(HttpStatus.NOT_FOUND)}
+        existingWrestler.name = wrestler.name
         existingWrestler.city = wrestler.city
         existingWrestler.promotion = wrestler.promotion
         existingWrestler.slug = wrestler.slug
