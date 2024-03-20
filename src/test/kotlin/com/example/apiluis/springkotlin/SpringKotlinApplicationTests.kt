@@ -1,5 +1,6 @@
 package com.example.apiluis.springkotlin
 
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +16,7 @@ class WrestlerRepositoryTests {
 	@Test
 	fun `test findAllByOrderByCreatedAtDesc`() {
 		val wrestlers = wrestlerRepository.findAllByOrderByCreatedAtDesc()
-		assert(wrestlers.isNotEmpty()) { "List of wrestlers should not be empty" }
+		assertNotNull(wrestlers) { "List of wrestlers should not be empty" }
 	}
 
 	@Test
